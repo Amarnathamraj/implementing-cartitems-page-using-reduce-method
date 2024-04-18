@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{ Fragment,useState } from "react";
+import Header from "./components/Layout/Header";
+import Meals from "./components/Meals/Meals";
+import Cart from "./components/Cart/Cart";
 
 function App() {
+  const[cartIsShown,setCartisShown]=useState(false);
+
+  const showCartHandler=()=>{//showcartHandler should be called when ever YOUR CART BUTTON IS CLICKED
+    setCartisShown(true);
+  };
+
+  const hideCartHandler=()=>{
+    setCartisShown(false);
+  };
+  //{} used for evaluating dynaic expression
+     // {cartIsShown && <Cart/>} this renders cart if cartisshown is true ,otherwise it doesnt show cart
+     //if cariisshown is false,we set false initally anyways
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+     {cartIsShown && <Cart onClose={hideCartHandler}/>} 
+      <Header onShowCart={showCartHandler} />
+     <main>
+      <Meals/>
+     </main>
+      </Fragment>
   );
 }
 
